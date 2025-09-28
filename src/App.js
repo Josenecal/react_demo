@@ -26,9 +26,12 @@ export default function Board() {
   }
 
   const winner = calculateWinner(squares);
+  const stalemate = determineStalemate(squares);
   let status;
   if (winner) {
     status = "Winner: " + winner;
+  } else if (stalemate) {
+    status = "Stalemate. Play again?"
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
@@ -71,6 +74,23 @@ function calculateWinner(squares) {
     if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
       return squares[a];
     }
+  }
+  return null;
+}
+
+function determineStalemate(squares) {
+  if (
+    squares[0] &&
+    squares[1] &&
+    squares[2] &&
+    squares[3] &&
+    squares[4] &&
+    squares[5] &&
+    squares[6] &&
+    squares[7] &&
+    squares[8]
+  ) {
+    return true;
   }
   return null;
 }
